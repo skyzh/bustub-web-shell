@@ -56,13 +56,25 @@
         var term = $('body').terminal(function (command) {
             line += command
             if (line.endsWith(';') || line.startsWith("\\")) {
-                const result = executeQuery(line)
-                this.echo(result)
+                if (line == "\\clear") {
+                    this.clear()
+                } else {
+                    const result = executeQuery(line)
+                    this.echo(result)
+                }
                 line = ""
             }
         }, {
-            greetings: "Welcome to the BusTub \u{1F6C1} shell!\nType \\help to learn about the usage.\nVersion: unknown\n",
-            prompt: () => line.length == 0 ? "[[b;;]bustub> ]" : "[[b;;]...> ]"
+            greetings: "Welcome to the BusTub \u{1F6C1} shell!\n" +
+                "Use \\help to learn about the usage. Use \\clear to clear the page.\n\n" +
+                "BusTub is a relational database management system built at Carnegie Mellon\n" +
+                "University for the Introduction to Database Systems (15-445/645) course.\n" +
+                "This system was developed for educational purposes and should not be used in\n" +
+                "production environments. " +
+                "[[!;;;;https://github.com/cmu-db/bustub]BusTub on GitHub] [[!;;;;https://15445.courses.cs.cmu.edu/]Course Website]\n\n" +
+                "This is BusTub reference solution running in your browser. " +
+                "Version: unknown\n",
+            prompt: () => line.length == 0 ? "[[b;;]bustub> ]" : "[[b;;]... ]"
         })
     })
 </script>
