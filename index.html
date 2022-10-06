@@ -50,7 +50,8 @@
     tr,
     td,
     tbody,
-    thead {
+    thead,
+    div {
         font-size: calc(var(--size, 1)*(12px/var(--pixel-density, 1)));
         white-space: pre;
     }
@@ -59,15 +60,15 @@
 <script src="./bustub-wasm-shell.js"></script>
 
 <script type="text/javascript">
-    const BUSTUB_PUBLIC_VERSION = "a179dd9"
-    const BUSTUB_PRIVATE_VERSION = "30135d6-dirty"
+    const BUSTUB_PUBLIC_VERSION_VAR = "7fca4c7"
+    const BUSTUB_PRIVATE_VERSION_VAR = "1959fdc-dirty"
 
     Module['onRuntimeInitialized'] = function () {
         const executeQuery = Module.cwrap('BustubExecuteQuery', 'number', ['string', 'number', 'number'])
         const test = Module.cwrap('Test', 'number', [])
         window.executeQuery = (x) => {
             const bufferSize = 64 * 1024
-            let output = new Array(bufferSize).join(" ")
+            let output = "\0".repeat(bufferSize)
             let ptrOutput = Module.allocateUTF8(output)
             console.log(executeQuery(x, ptrOutput, bufferSize))
             output = Module.UTF8ToString(ptrOutput)
@@ -91,11 +92,7 @@
                     this.clear()
                 } else {
                     const result = executeQuery(line)
-                    if (result.startsWith("table")) {
-                        this.echo(result, { raw: true })
-                    } else {
-                        this.echo(`<div style="white-space: pre">${result}</div>`, { raw: true })
-                    }
+                    this.echo(result, { raw: true })
                 }
                 line = ""
             }
@@ -107,7 +104,7 @@ BusTub is a relational database management system built at Carnegie Mellon Unive
 
 Use \\help to learn about the usage. Use \\clear to clear the page.
 
-This is BusTub reference solution running in your browser. Solution Version: 30135d6-dirty, BusTub Version: a179dd9.
+This is BusTub reference solution running in your browser. Solution Version: ${BUSTUB_PRIVATE_VERSION_VAR}, BusTub Version: ${BUSTUB_PUBLIC_VERSION_VAR}.
 `,
             prompt: () => line.length == 0 ? "[[b;;]bustub> ]" : "[[b;;]... ]"
         })
