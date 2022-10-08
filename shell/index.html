@@ -35,7 +35,7 @@
 
     .terminal::after {
         content: "";
-        background-image: url("bustub.svg");
+        background-image: url("/bustub.svg");
         opacity: 0.02;
         top: -50%;
         left: -50%;
@@ -57,11 +57,11 @@
     }
 </style>
 
-<script src="./bustub-wasm-shell.js"></script>
+<script src="/shell/bustub-wasm-shell.js"></script>
 
 <script type="text/javascript">
-    const BUSTUB_PUBLIC_VERSION_VAR = "568190f-dirty"
-    const BUSTUB_PRIVATE_VERSION_VAR = "27dc8fa-dirty"
+    const BUSTUB_PUBLIC_VERSION_VAR = "2899627"
+    const BUSTUB_PRIVATE_VERSION_VAR = "94b33c5-dirty"
 
     Module['onRuntimeInitialized'] = function () {
         const executeQuery = Module.cwrap('BustubExecuteQuery', 'number', ['string', 'number', 'number'])
@@ -113,6 +113,16 @@ This is BusTub reference solution running in your browser. Solution Version: ${B
             prompt: () => line.length == 0 ? "[[b;;]bustub> ]" : "[[b;;]... ]"
         })
     })
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-52525161-8"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-52525161-8');
 </script>
 
 </html>
