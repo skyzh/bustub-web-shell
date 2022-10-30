@@ -72,9 +72,9 @@
 <script src="bustub-wasm-bpt-printer.js"></script>
 
 <script type="text/javascript">
-    const BUSTUB_PUBLIC_VERSION_VAR = "746c07d"
-    const BUSTUB_PRIVATE_VERSION_VAR = "d46765d"
-    const BUSTUB_BUILD_TIME_VAR = "20221024"
+    const BUSTUB_PUBLIC_VERSION_VAR = "fe87554"
+    const BUSTUB_PRIVATE_VERSION_VAR = "2bb3ea8"
+    const BUSTUB_BUILD_TIME_VAR = "20221030"
     const viz = new Viz()
 
     Module['onRuntimeInitialized'] = function () {
@@ -113,7 +113,9 @@
             } else if (line == "?") {
                 this.echo(helpMessage)
             } else {
-                if (!initialized) {
+                if (!window.initialize) {
+                    this.echo("BusTub shell is still initializing, please wait.")
+                } else if (!initialized) {
                     const [x, y] = line.split(" ")
                     const [px, py] = [parseInt(x), parseInt(y)]
                     if (px >= 2 && py >= 3) {
